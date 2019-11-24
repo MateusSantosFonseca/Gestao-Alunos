@@ -204,16 +204,9 @@ int removerAluno(struct Aluno listaAlunos[],int contadorAlunos)
 {
     system ("cls");
 
-    int numeroMatriculaAux = 0;
+    printf(" Voce esta removendo um(a) aluno(a)!!\n\n");
 
-    printf(" Voce esta removendo um(a) aluno(a)!!");
-
-    do
-    {
-        printf("\n\n Digite o numero de matricula do aluno(a): ");
-        scanf("%d", &numeroMatriculaAux);
-    }
-    while (numeroMatriculaAux < 100000 || numeroMatriculaAux > 999999);
+    int numeroMatriculaAux = getNumeroMatriculaAluno();
 
     int posicaoAluno = pesquisarAluno(listaAlunos,numeroMatriculaAux); //variavel que tem a posicao do aluno que será removido no array, se nao tiver o aluno, possui -1
 
@@ -293,8 +286,6 @@ int pesquisarAluno(struct Aluno listaAlunos[], int idMatriculaAluno)
 
     return -1;
 }
-
-
 
 int getNumeroMatriculaAluno()
 {
