@@ -1,7 +1,7 @@
 # Gestao de alunos
 
 
-### Sistema de gestão de alunos produzido em C, para relembrar conceitos. 
+### Sistema de gestão de alunos produzido em C.
 
 - O sistema deve permitir ao usuário adicionar alunos;
 
