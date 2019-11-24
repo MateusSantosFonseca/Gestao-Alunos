@@ -65,7 +65,7 @@ int main ()
             break;
         default:
             printf("\n\n Sistema fechando...\n\n\n");
-            Sleep(4000);
+            Sleep(3000);
             break;
         }
     }
