@@ -11,5 +11,7 @@
 
 - O sistema deve permitir ao usuário imprimir alunos;
 
+- O sistema deve permitir ao usuário imprimir os alunos de acordo com um curso específico explicitado.
+
 #### PS.: Não foram aplicados todos os conceitos de reusabilidade e coesão, uma vez que o propósito era apenas relembrar a linguagem!
 #### PS2.: Alguns campos foram validados, mas a validação não é completa e podem haver falhas!
