@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <ctype.h>
 
 typedef struct Aluno
 {
@@ -19,6 +20,8 @@ void editarAluno(struct Aluno listaAlunos[], int contadorAlunos);
 int pesquisarAluno(struct Aluno listaAlunos[], int idMatriculaAluno);
 int removerAluno(struct Aluno listaAlunos[],int contadorAlunos);
 void imprimirListaAlunos(struct Aluno listaAlunos[],int contadorAlunos);
+void imprimirAlunosComFiltro(struct Aluno listaAlunos[]);
+void stringParaMinusculo(char * string);
 int getNumeroMatriculaAluno();
 void getNomeAluno(char * nomeAluno);
 void getSobrenomeAluno(char * sobrenomeAluno);
@@ -43,6 +46,7 @@ int main ()
         printf("\n\n\t2 - Editar aluno");
         printf("\n\n\t3 - Remover aluno");
         printf("\n\n\t4 - Imprimir alunos");
+        printf("\n\n\t5 - Imprimir alunos matriculados em um curso");
         printf("\n\n\tOutro valor - Sair do sistema");
         printf("\n\n\tDigite a opcao desejada: ");
         scanf("%d", &opcaoEscolhida);
@@ -63,13 +67,16 @@ int main ()
         case (4):
             imprimirListaAlunos(listaAlunos, contadorAlunos);
             break;
+        case (5):
+            imprimirAlunosComFiltro(listaAlunos);
+            break;
         default:
             printf("\n\n Sistema fechando...\n\n\n");
             Sleep(3000);
             break;
         }
     }
-    while ((opcaoEscolhida >= 1) && (opcaoEscolhida <= 4));
+    while ((opcaoEscolhida >= 1) && (opcaoEscolhida <= 5));
 
     return 0;
 }
@@ -250,7 +257,41 @@ void imprimirListaAlunos(struct Aluno listaAlunos[], int contadorAlunos)
     {
         printf("  Nao existem alunos cadastrados ate o momento!!");
     }
+}
 
+void imprimirAlunosComFiltro(struct Aluno listaAlunos[])
+{
+    system("cls");
+    fflush(stdin);
+    printf("\n Agrupando alunos pelo curso\n");
+    char cursoFiltro[26] = "";
+    int auxContador = 0;
+
+    getCursoAluno(cursoFiltro);
+    stringParaMinusculo(cursoFiltro);
+
+    printf("\n Alunos(as) do curso %s matriculados:\n\n\n", cursoFiltro);
+    for(int i = 0; i < 100; i++)
+    {
+        char cursoAlunoAtual[26] = "";
+        strcpy(cursoAlunoAtual, listaAlunos[i].curso);
+        stringParaMinusculo(cursoAlunoAtual);
+
+        if(strcmp(cursoAlunoAtual, cursoFiltro)==0)
+        {
+            Aluno aux = listaAlunos[i];
+            printf(" %s %s, de numero de matricula: %d, nascido(a) em %d, está matriculado(a) no curso de %s.\n\n", aux.nome, aux.sobrenome, aux.numeroMatricula, aux.anoNascimento, aux.curso);
+        }
+        else
+        {
+            auxContador++;
+        }
+    }
+
+    if(auxContador == 100)
+    {
+        printf("  Nao existem alunos cadastrados no curso %s ate o momento!!", cursoFiltro);
+    }
 }
 
 Aluno construirNovoAluno()
@@ -283,8 +324,15 @@ int pesquisarAluno(struct Aluno listaAlunos[], int idMatriculaAluno)
             return i;
         }
     }
-
     return -1;
+}
+
+void stringParaMinusculo(char * string)
+{
+    for(int i = 0; i < strlen(string); i++)
+    {
+        string[i] = (char) tolower(string[i]);
+    }
 }
 
 int getNumeroMatriculaAluno()
@@ -327,7 +375,6 @@ void getSobrenomeAluno(char * sobrenomeAluno)
     strtok(sobrenomeAux, "\n");
     strcpy(sobrenomeAluno, sobrenomeAux);
 }
-
 
 int getAnoNascimentoAluno()
 {
